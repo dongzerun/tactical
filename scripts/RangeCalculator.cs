@@ -106,7 +106,7 @@ public partial class RangeCalculator : Node
         return results;
     }
 
-    public List<Vector2I> GetRangeCells(Vector2I center, int range, DistanceAlgorithm distanceAlgorithm=DistanceAlgorithm.CHEBYSHEV)
+    public List<Vector2I> GetRangeCells(Vector2I center, int range, DistanceAlgorithm distanceAlgorithm=DistanceAlgorithm.MANHATTAN)
     {
         List<Vector2I> results = new();
         foreach (var x in Enumerable.Range(-range, 2 * range + 1))

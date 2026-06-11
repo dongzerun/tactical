@@ -50,21 +50,22 @@ public partial class EnemyState : BaseState
     private List<Vector2I> getNearbyPostions(Vector2I pos, int range)
     {
         List<Vector2I> results = new();
-        foreach (var x in Enumerable.Range(-range, 2 * range + 1))
+        foreach (var kvp in Unit.DIR_MAP)
         {
-            foreach (var y in Enumerable.Range(-range, 2 * range + 1))
+            foreach (var i in Enumerable.Range(-range, 2 * range + 1))
             {
-                if (x == 0 && y==0)
+                // skip current cell
+                if (i==0)
                     continue;
 
-                var nearby = new Vector2I(x+pos.X, y+pos.Y);
+                var nearby = pos + i*kvp.Key;
                 var gridData = battleNode.gameArea.gameGrid.gridDB[nearby];
                 if (gridData.unit == null && gridData.obstacle == Obstacle.NULL)
                 {
                     results.Add(nearby);
                     GD.Print("getNearbyPostions " + pos + " nearby " + nearby);
                 }
-            }
+            }   
         }
         GD.Print("getNearbyPostions " + pos + " cells " + results.Count);
         return results;
@@ -75,22 +76,33 @@ public partial class EnemyState : BaseState
         var bestPath = new List<Vector2I>();
         var minDist = 999;
         var isBestReachable = false;
+        var myPos = battleNode.gameArea.gameGrid.getUnitPosition(mainUnit);
 
         foreach (var target in targets)
         {
-            var pos=battleNode.gameArea.gameGrid.getUnitPosition(target);
-            if (pos == new Vector2I(-999, -999))
+            var targetPos=battleNode.gameArea.gameGrid.getUnitPosition(target);
+            if (targetPos == new Vector2I(-999, -999))
                 continue;
             
-            var nearbyPos = getNearbyPostions(pos, 1);
-            if (nearbyPos.Count == 0)
+            var nearbyCells = getNearbyPostions(targetPos, 1);
+            if (nearbyCells.Count == 0)
+                continue;
+
+            var nearbyPos = getFirstAvailableNearbyPos(myPos, targetPos, nearbyCells, filter: pos => {
+                // 检查位置是否有效
+                if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(pos))
+                    return false;
+        
+                var gridData = battleNode.gameArea.gameGrid.gridDB[pos];
+                return gridData.unit == null && gridData.obstacle == Obstacle.NULL;
+            });
+            if (nearbyPos == new Vector2I(-999, -999))
                 continue;
             
-            // to simplfy, just pickup first pos
-            var result = battleNode.gridCalculator.getMovePath(mainUnit, nearbyPos[0]);
+            var result = battleNode.gridCalculator.getMovePath(mainUnit, nearbyPos);
             var reachable = result[GridCalculator.ReachablePath];
             var unreachable  = result[GridCalculator.UnreachablePath];
-            GD.Print("calculateBestMovePath to target " + pos + " with nearbyPos "+ nearbyPos[0] + " " + reachable.Count + " " + unreachable.Count + " " + result.Count);
+            GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + result.Count);
             var currentExecutePath = reachable;
             if (currentExecutePath.Count == 0)
                 continue;
@@ -137,6 +149,43 @@ public partial class EnemyState : BaseState
                 results.Add(u);
         }
         return results;
+    }
+
+    private Vector2I getFirstAvailableNearbyPos(Vector2I from, Vector2I to, List<Vector2I> nearbys, Func<Vector2I, bool> filter = null)
+    {
+        var result = new Vector2I(-999,-999);
+        
+        if (nearbys == null || nearbys.Count == 0)
+            return result;
+        
+        Vector2I? bestPos = null;
+        int bestDistance = int.MaxValue;
+        
+        foreach (var nearby in nearbys)
+        {
+            var direction = nearby - from;
+            // 应用过滤器
+            if (filter != null && !filter(nearby))
+                continue;
+            
+            // 计算这个 nearby 到目标 to 的距离（使用 Manhattan）
+            var dist = Math.Abs(nearby.X - to.X) + Math.Abs(nearby.Y - to.Y);
+            
+            var nearbyDir = to-nearby;
+            var dotProduct = nearbyDir.X * direction.X + nearbyDir.Y * direction.Y;
+            
+            if (dotProduct >= 0 && dist < bestDistance)
+            {
+                bestDistance = dist;
+                bestPos = nearby;
+            }
+        }
+        
+        if (bestPos.HasValue)
+            result = bestPos.Value;
+        
+        GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, best={result}, distance={bestDistance}");
+        return result;
     }
 
     private async void tryAttack()
