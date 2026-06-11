@@ -13,8 +13,8 @@ public partial class UnitStat : Resource
     public static Dictionary<Terrain, int> moveCostMap = new Dictionary<Terrain, int>
     {
         {Terrain.LAND, 1},
-        {Terrain.GRASS ,2},
-        {Terrain.STONE, 3},
+        {Terrain.GRASS ,1},
+        {Terrain.STONE, 1},
         {Terrain.RIVER ,-1},
     }; 
     

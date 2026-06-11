@@ -25,7 +25,8 @@ public partial class UnitMover : Node
         var startGridPos = path[0];
         var endGridPos = path.Last();
         
-        gameArea.gameGrid.removeUnitInMap(startGridPos);
+        var opsSuccess = gameArea.gameGrid.removeUnitInMap(startGridPos);
+        GD.Print("removeUnitInMap " + startGridPos + " " + opsSuccess);
         var tween = CreateTween();
         tween.SetEase(Tween.EaseType.InOut);
         tween.SetTrans(Tween.TransitionType.Linear);
@@ -50,7 +51,8 @@ public partial class UnitMover : Node
         await ToSignal(tween, "finished");
         unit.PlayIdle();
 
-        gameArea.gameGrid.addUnitInMap(unit, endGridPos);
+        opsSuccess = gameArea.gameGrid.addUnitInMap(unit, endGridPos);
+        GD.Print("addUnitInMap " + startGridPos + " " + opsSuccess);
         MoveFinishedEvent?.Invoke();
     } 
 }

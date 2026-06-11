@@ -15,3 +15,4 @@ D:\godotgame\tactical\.godot\mono\temp\obj\Debug\refint\tactical.dll
 D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.pdb
 D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.genruntimeconfig.cache
 D:\godotgame\tactical\.godot\mono\temp\obj\Debug\ref\tactical.dll
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.sourcelink.json
