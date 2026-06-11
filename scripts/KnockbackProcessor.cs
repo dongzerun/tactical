@@ -46,7 +46,7 @@ public partial class KnockbackProcessor : Node
         var plan = planKnockbackPath(originPos, target, distance);
         if (!plan.IsValid())
             return;
-        
+        GD.Print("executeKnockbackInternal plan " + plan.ToString());
         var moveTime = perCellTime< 0 ? DefaultPerCellTime : perCellTime;
         if (gameArea != null && gameArea.gameGrid != null)
         {
@@ -152,6 +152,7 @@ public partial class KnockbackProcessor : Node
             return plan;
         
         var direction = calculateKnockbackDirection(originPos, targetPos);
+        // GD.Print("planKnockbackPath params: " + originPos + " " + distance + " " + targetPos + " " + direction);
         if (direction == Vector2I.Zero)
             return plan;
         

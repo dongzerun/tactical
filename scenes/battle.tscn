@@ -151,5 +151,7 @@ script = ExtResource("20_61i1y")
 gameArea = NodePath("../GameArea")
 battleNode = NodePath("..")
 
-[node name="KnockbackProcessor" type="Node" parent="."]
+[node name="KnockbackProcessor" type="Node" parent="." node_paths=PackedStringArray("gameArea", "attackProcessor")]
 script = ExtResource("30_rwtbh")
+gameArea = NodePath("../GameArea")
+attackProcessor = NodePath("../AttackProcessor")

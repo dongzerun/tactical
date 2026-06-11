@@ -17,6 +17,11 @@ public partial class KnockbackPlan : Node
     public Unit CollisionUnit;
     public bool IsFalling;
 
+    public override string ToString()
+    {
+        return $"StartCell {StartCell}, LandingCell {LandingCell}, CollisionType {CollisionType}, CollisionCell {CollisionCell}, IsFalling {IsFalling}";
+    }
+
     public void SetData(Vector2I startCell, Vector2I landingCell,CollisionType collisionType,Vector2I collisionCell, Unit collisionUnit,bool isFalling)
     {
         StartCell = startCell;

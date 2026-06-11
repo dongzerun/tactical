@@ -44,7 +44,7 @@ public partial class MoveState : BaseState
         if (currentTile == lastHoveredTile)
             return;
         
-        GD.Print("try to paint to target tile " + currentTile);
+        //GD.Print("try to paint to target tile " + currentTile);
         lastHoveredTile = currentTile;
         var lastPos = updatePathPreview(currentTile);
 
@@ -52,7 +52,7 @@ public partial class MoveState : BaseState
         {
             var rangeVal = _mainUnit.GetAttackRange();
             var attackableCells = battleNode.rangeCalculator.GetRangeCells(lastPos, rangeVal);
-            GD.Print("ShowRange " + lastPos + " range " + rangeVal + " cells " + attackableCells.Count);
+            //GD.Print("ShowRange " + lastPos + " range " + rangeVal + " cells " + attackableCells.Count);
             battleNode.rangeSelector.ShowRange(attackableCells, new Color(1,0,0,0.5f),"attackRange");
         }
         else
@@ -73,8 +73,8 @@ public partial class MoveState : BaseState
         reachableCells = result.CostSofar;
         parents = result.Parents;
         var cells =reachableCells.Keys;
-        GD.Print("reachableCells " + reachableCells.Keys.ToArray().Join(""));
-        GD.Print("parents " + parents.Count);
+        //GD.Print("reachableCells " + reachableCells.Keys.ToArray().Join(""));
+        //GD.Print("parents " + parents.Count);
         battleNode.rangeSelector.ShowRange(cells.ToList(),new Color(0.4f,0.6f,1.0f,0.5f), "move_range");
         showingArea = true;
     }
@@ -95,7 +95,7 @@ public partial class MoveState : BaseState
             var result = battleNode.gridCalculator.getMovePath(_mainUnit, currentTile);
             if (result["reachable"].Count > 0)
             {
-                GD.Print("Input move unit to " + currentTile + " with " + result["reachable"].ToArray().Join(","));
+                //GD.Print("Input move unit to " + currentTile + " with " + result["reachable"].ToArray().Join(","));
                 battleNode.HideSkull();
                 MoveUnit(result["reachable"]);
             }
@@ -108,7 +108,7 @@ public partial class MoveState : BaseState
                 return;
             if (showingArea)
             {
-                GD.Print("mouse right again to clear showing area");
+                //GD.Print("mouse right again to clear showing area");
                 battleNode.rangeSelector.ClearAllRanges();
                 reachableCells.Clear();
                 parents.Clear();
@@ -134,7 +134,7 @@ public partial class MoveState : BaseState
         if (reachableCells.ContainsKey(tile))
         {
             var path=gridCalculator.GetTargetPath(tile, parents);
-            GD.Print("reachable in parents path " + path.Count);
+            //GD.Print("reachable in parents path " + path.Count);
             if (path.Count > 0)
             {
                 pathPainter.ShowPath(path, new Color(1f,1f,0.5f,0.9f),"reachable");
@@ -148,12 +148,12 @@ public partial class MoveState : BaseState
         var result = gridCalculator.getMovePath(mainUnit, tile);
         var reachable = result["reachable"];
         var unreachable = result["unreachable"];
-        GD.Print("reachable " +reachable.Count);
-        GD.Print("unreachable " + unreachable.Count);
+        //GD.Print("reachable " +reachable.Count);
+        //GD.Print("unreachable " + unreachable.Count);
         if (reachable.Count > 0)
         {
             lastVec = reachable.Last();
-            GD.Print("lastVec " + lastVec);
+            //GD.Print("lastVec " + lastVec);
             pathPainter.ShowPath(reachable, new Color(1f,1f,0.5f,0.9f),"reachable");
         }
         else
@@ -190,7 +190,7 @@ public partial class MoveState : BaseState
 
     public void OnMoveFinished()
     {
-        GD.Print("received OnMoveFinished");
+        //GD.Print("received OnMoveFinished");
         isMoving = false;
         lastHoveredTile = new Vector2I(-999, -999);
         showingArea = false;

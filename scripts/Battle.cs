@@ -26,7 +26,7 @@ public partial class Battle : Node2D
     public Dictionary<Vector2I, UnitInfo> unitPosDict = new Dictionary<Vector2I, UnitInfo>
     {
         {new Vector2I(0,0), UnitInfo.New(Faction.Friendly, "res://data/UnitStat.tres")},
-        //{new Vector2I(2,2), UnitInfo.New(Faction.Friendly, "res://data/UnitStat.tres")},
+        {new Vector2I(3,0), UnitInfo.New(Faction.Enemy, "res://data/UnitStat.tres")},
         {new Vector2I(3,-2), UnitInfo.New(Faction.Enemy, "res://data/UnitStat.tres")}
     };
 

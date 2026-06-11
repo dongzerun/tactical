@@ -46,3 +46,4 @@ res://scripts/KnockbackProcessor.cs
 res://scripts/HealSkill.cs
 res://scripts/KnockbackPlan.cs
 res://scripts/KnockbackSkill.cs
+res://data/Knockback.tres

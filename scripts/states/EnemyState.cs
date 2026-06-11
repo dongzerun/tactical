@@ -66,11 +66,11 @@ public partial class EnemyState : BaseState
                 if (gridData.unit == null && gridData.obstacle == Obstacle.NULL)
                 {
                     results.Add(nearby);
-                    GD.Print("getNearbyPostions " + pos + " nearby " + nearby);
+                    //GD.Print("getNearbyPostions " + pos + " nearby " + nearby);
                 }
             }   
         }
-        GD.Print("getNearbyPostions " + pos + " cells " + results.Count);
+       // GD.Print("getNearbyPostions " + pos + " cells " + results.Count);
         return results;
     }
 
@@ -105,7 +105,7 @@ public partial class EnemyState : BaseState
             var result = battleNode.gridCalculator.getMovePath(mainUnit, nearbyPos);
             var reachable = result[GridCalculator.ReachablePath];
             var unreachable  = result[GridCalculator.UnreachablePath];
-            GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + result.Count);
+            //GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + result.Count);
             var currentExecutePath = reachable;
             if (currentExecutePath.Count == 0)
                 continue;
@@ -187,7 +187,7 @@ public partial class EnemyState : BaseState
         if (bestPos.HasValue)
             result = bestPos.Value;
         
-        GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, best={result}, distance={bestDistance}");
+        //GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, best={result}, distance={bestDistance}");
         return result;
     }
 
@@ -197,7 +197,7 @@ public partial class EnemyState : BaseState
         var attackRange = mainUnit.GetAttackRange();
         var attackableCells = battleNode.rangeCalculator.GetRangeCells(
             unitPos, attackRange);
-        GD.Print("tryAttack my pos " + unitPos + " attackRange " + attackRange + " attackableCells: " + attackableCells.ToArray().Join(" "));
+        //GD.Print("tryAttack my pos " + unitPos + " attackRange " + attackRange + " attackableCells: " + attackableCells.ToArray().Join(" "));
         Unit bestTarget = null;
         foreach (var cell in attackableCells)
         {
@@ -208,17 +208,17 @@ public partial class EnemyState : BaseState
             if (cellData == null)
                 continue;
             
-            GD.Print("tryAttack cellData: " + cell);
+            //GD.Print("tryAttack cellData: " + cell);
             Unit targetUnit = cellData.unit as Unit;
             if (targetUnit == null || targetUnit is not Unit)
                 continue;
-            GD.Print("tryAttack cellData: " + cell + " targetUnit 1" );
+            //GD.Print("tryAttack cellData: " + cell + " targetUnit 1" );
             if (targetUnit == mainUnit)
                 continue;
-            GD.Print("tryAttack cellData: " + cell + " targetUnit 2" );
+            //GD.Print("tryAttack cellData: " + cell + " targetUnit 2" );
             if (targetUnit.faction == mainUnit.faction)
                 continue;
-            GD.Print("tryAttack cellData: " + cell + " targetUnit 3" );
+            //GD.Print("tryAttack cellData: " + cell + " targetUnit 3" );
             if(bestTarget == null || targetUnit.currentHP < bestTarget.currentHP)
             {
                 bestTarget = targetUnit;
@@ -227,7 +227,7 @@ public partial class EnemyState : BaseState
 
         if (bestTarget == null)
         {
-            GD.Print("tryAattack bestTarget is null");
+            //GD.Print("tryAattack bestTarget is null");
             return;
         }
 

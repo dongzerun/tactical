@@ -92,7 +92,7 @@ public partial class SkillState : BaseStateMachine
 
     public BaseSkill GetCurrentSkill()
     {
-        GD.Print("GetCurrentSkill "+CurrentSkill.SkillName);
+        //GD.Print("GetCurrentSkill "+CurrentSkill.SkillName);
         return CurrentSkill;
     }
 }
