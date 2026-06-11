@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dlnyal350dvbu"]
+
+[ext_resource type="Script" uid="uid://t8wj4c1sejst" path="res://scripts/UnitStat.cs" id="1_nvnqy"]
+
+[resource]
+script = ExtResource("1_nvnqy")
+attackRange = 1
+maxHP = 100
+attackDamage = 20

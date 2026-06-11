@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0i6hp70i5xaw"]
+
+[ext_resource type="Script" uid="uid://cu78ignvjv0la" path="res://scripts/FloatingText.cs" id="1_45khh"]
+
+[node name="FloatingText" type="Label"]
+z_index = 9
+offset_right = 40.0
+offset_bottom = 16.0
+script = ExtResource("1_45khh")

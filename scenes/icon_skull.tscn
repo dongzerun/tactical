@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bepl6vmi4xbes"]
+
+[ext_resource type="Texture2D" uid="uid://6jpwham5qxge" path="res://assets/IconGodotNode/node/icon_skull.png" id="1_ahoxl"]
+[ext_resource type="Script" uid="uid://d1noeuoqtdog8" path="res://scripts/IconSkull.cs" id="2_rxaa6"]
+
+[node name="IconSkull" type="Sprite2D"]
+z_index = 2
+texture_filter = 1
+texture = ExtResource("1_ahoxl")
+script = ExtResource("2_rxaa6")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b4v3mpydp13qd"]
+
+[ext_resource type="Script" uid="uid://qisokt57xur" path="res://scripts/BaseSkill.cs" id="1_p3twk"]
+
+[resource]
+script = ExtResource("1_p3twk")
+SkillName = "TestSkill"
+AnimationName = "SKILL"
+originType = 0
+castRange = 3
+AreaRange = Vector2i(3, 0)
+AreaShape = 3
+AreaAlgorithm = 1
+IsDirection = true

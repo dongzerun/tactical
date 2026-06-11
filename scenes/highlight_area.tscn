@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmxgphe3nu4m4"]
+
+[ext_resource type="PackedScene" uid="uid://qseqnymbgrsr" path="res://scenes/highlight_line.tscn" id="1_op53f"]
+[ext_resource type="Script" uid="uid://bfg3ha1e777hq" path="res://scripts/HighlightArea.cs" id="1_td8h0"]
+
+[node name="HighlightArea" type="Polygon2D"]
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8, -16, 0)
+script = ExtResource("1_td8h0")
+
+[node name="HighlightLine" parent="." instance=ExtResource("1_op53f")]
+default_color = Color(0, 0, 0, 0.78431374)

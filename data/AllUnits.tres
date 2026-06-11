@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bws3av5w7cbe4"]
+
+[ext_resource type="Script" uid="uid://b855myttebk43" path="res://scripts/AllUnits.cs" id="1_ql0lr"]
+
+[resource]
+script = ExtResource("1_ql0lr")

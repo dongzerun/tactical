@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "QwUuLfe0XOk=",
+  "success": true,
+  "projectFilePath": "D:\\godotgame\\tactical\\tactical.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dzr\\.nuget\\packages\\godot.sourcegenerators\\4.5.1\\godot.sourcegenerators.4.5.1.nupkg.sha512",
+    "C:\\Users\\dzr\\.nuget\\packages\\godotsharp\\4.5.1\\godotsharp.4.5.1.nupkg.sha512",
+    "C:\\Users\\dzr\\.nuget\\packages\\godotsharpeditor\\4.5.1\\godotsharpeditor.4.5.1.nupkg.sha512",
+    "C:\\Users\\dzr\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.18\\microsoft.netcore.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\dzr\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.18\\microsoft.windowsdesktop.app.ref.8.0.18.nupkg.sha512",
+    "C:\\Users\\dzr\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.18\\microsoft.aspnetcore.app.ref.8.0.18.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,17 @@
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\tactical.deps.json
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\tactical.runtimeconfig.json
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\tactical.dll
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\tactical.pdb
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\GodotSharp.dll
+D:\godotgame\tactical\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.csproj.AssemblyReference.cache
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.GeneratedMSBuildEditorConfig.editorconfig
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.AssemblyInfoInputs.cache
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.AssemblyInfo.cs
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.csproj.CoreCompileInputs.cache
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.csproj.Up2Date
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.dll
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\refint\tactical.dll
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.pdb
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\tactical.genruntimeconfig.cache
+D:\godotgame\tactical\.godot\mono\temp\obj\Debug\ref\tactical.dll
