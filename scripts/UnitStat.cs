@@ -14,7 +14,7 @@ public partial class UnitStat : Resource
     {
         {Terrain.LAND, 1},
         {Terrain.GRASS ,1},
-        {Terrain.STONE, 1},
+        {Terrain.STONE, 2},
         {Terrain.RIVER ,-1},
     }; 
     

@@ -171,15 +171,15 @@ public partial class GridCalculator : Node
             return path;
         }
         var targetID = aStar.GetClosestPoint(targetPos);
-        GD.Print("targetID2 "+targetID);
+        //GD.Print("targetID2 "+targetID);
         if (targetID == -1)
             return path;
         
         var idPaths = aStar.GetIdPath(coordToID[startPos],targetID);
-        GD.Print("targetID3 "+targetID);
+        //GD.Print("targetID3 "+targetID);
         if (idPaths.Length == 0)
             return path;
-        GD.Print("idPaths " +idPaths);
+        //GD.Print("idPaths " +idPaths);
         path[ReachablePath].Add(startPos);
 
         var currentMove = unit.GetMovePoints();

@@ -6,4 +6,5 @@
 script = ExtResource("1_hmatm")
 SkillName = "Heal"
 AnimationName = "SKILL"
+IncludeSelf = true
 Filter = 2

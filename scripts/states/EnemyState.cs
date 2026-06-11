@@ -59,6 +59,9 @@ public partial class EnemyState : BaseState
                     continue;
 
                 var nearby = pos + i*kvp.Key;
+                if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(nearby))
+                    continue;
+                
                 var gridData = battleNode.gameArea.gameGrid.gridDB[nearby];
                 if (gridData.unit == null && gridData.obstacle == Obstacle.NULL)
                 {
