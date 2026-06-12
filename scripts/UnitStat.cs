@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public partial class UnitStat : Resource
 {
-    [Export] public int MovePoint = 8;
-    [Export] public int attackRange = 2;
-    [Export] public int maxHP=1;
-    [Export] public int attackDamage = 10;
-    [Export] public int defense = 1;
+    [Export] private int MovePoint = 8;
+    [Export] private int attackRange = 2;
+    [Export] private int maxHP=1;
+    [Export] private int attackDamage = 10;
+    [Export] private int defense = 1;
     
     public static Dictionary<Terrain, int> moveCostMap = new Dictionary<Terrain, int>
     {
@@ -16,8 +16,13 @@ public partial class UnitStat : Resource
         {Terrain.GRASS ,1},
         {Terrain.STONE, 2},
         {Terrain.RIVER ,-1},
-    }; 
-    
+    };
+
+    public int GetMovePoint()
+    {
+        return MovePoint;
+    }
+
     public int GetAttackDamage()
     {
         return attackDamage;
@@ -32,7 +37,12 @@ public partial class UnitStat : Resource
     {
         return attackRange;
     }
-    
+
+    public int GetMaxHP()
+    {
+        return maxHP;
+    }
+
     public int GetMovePoints()
     {
         return MovePoint;

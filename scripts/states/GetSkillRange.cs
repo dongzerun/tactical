@@ -69,7 +69,7 @@ public partial class GetSkillRange : BaseState
             skillStateMachine.Direction = PreviewDirection;
         }
         skillStateMachine.SetTargetPos(GetTargetPos(skill, cellPos));
-        parentFSM.changeState("ExecuteSkill");
+        parentFSM.changeState(StatsConst.ExecuteSkill);
     }
 
     public void UpdatePreviewDirection(BaseSkill skill, Vector2I cellPos)

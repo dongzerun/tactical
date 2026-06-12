@@ -53,7 +53,7 @@ public partial class AttackState : BaseState
             var selectedSkill = battleNode.TrySelectSkillFromInput(@event);
             if (selectedSkill != null)
             {
-                parentFSM.changeState("SkillState");
+                parentFSM.changeState(StatsConst.SkillState);
                 return;
             }
         }
@@ -76,7 +76,7 @@ public partial class AttackState : BaseState
 
         if (@event.IsActionPressed("mouse_right"))
         {
-            parentFSM.parentFSM.changeState("EndState");
+            parentFSM.parentFSM.changeState(StatsConst.EndState);
         }
     }
 
@@ -137,7 +137,7 @@ public partial class AttackState : BaseState
             isAttacking = false;
             // 断开事件连接
             attack.animatedSprite2DNode.AnimationFinished -= OnAttackAnimationFinished;
-            parentFSM.parentFSM.changeState("EndState");
+            parentFSM.parentFSM.changeState(StatsConst.EndState);
         }
     }
 

@@ -19,7 +19,7 @@ public partial class ExecuteSkill : BaseState
         await TriggerSkillAnimation(caster, skill.AnimationName, unitDirection);
         
         await skill.Execute(caster, targetPos,direction,battleNode.rangeCalculator, battleNode);
-        parentFSM.parentFSM.parentFSM.changeState("EndState");
+        parentFSM.parentFSM.parentFSM.changeState(StatsConst.EndState);
     }
 
     public override void OnExit()

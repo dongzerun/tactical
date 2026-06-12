@@ -27,7 +27,7 @@ public partial class SelectOrigin : BaseState
             {
                 skillStateMachine.SetOriginPos(cellPos);
                 GD.Print("SelectOrigin select origin " + cellPos);
-                parentFSM.changeState("GetSkillRange");
+                parentFSM.changeState(StatsConst.GetSkillRange);
             }
             else
             {
@@ -37,7 +37,7 @@ public partial class SelectOrigin : BaseState
 
         if (@event.IsActionPressed("mouse_right"))
         {
-            parentFSM.parentFSM.changeState("AttackState");
+            parentFSM.parentFSM.changeState(StatsConst.AttackState);
         }
     }
 

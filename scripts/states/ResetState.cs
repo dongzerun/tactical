@@ -17,7 +17,7 @@ public partial class ResetState : BaseState
         if (battleNode.backupAllUnitsResource == null)
         {
             GD.Print("ResetState: battleNode.backupAllUnitsResource is null, no need Reset");
-            parentFSM.changeState("StartState");
+            parentFSM.changeState(StatsConst.StartState);
             return; 
         }
         
@@ -25,7 +25,7 @@ public partial class ResetState : BaseState
         RestoreUnitsFromBackup();
         CleanupInactivePools();
         FinalizeReset();
-        parentFSM.changeState("StartState");
+        parentFSM.changeState(StatsConst.StartState);
     }
 
     public void CollectInActiveUnits()

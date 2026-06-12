@@ -43,7 +43,7 @@ public partial class EnemyState : BaseState
             }
         }
         GD.Print("ExecuteAITurn try to attack targets: " + targets.Count);
-        tryAttack();
+        await tryAttack();
         parentFSM.parentFSM.changeState("EndState");
     }
 
@@ -191,7 +191,7 @@ public partial class EnemyState : BaseState
         return result;
     }
 
-    private async void tryAttack()
+    private async Task tryAttack()
     {
         var unitPos = battleNode.gameArea.gameGrid.getUnitPosition(mainUnit);
         var attackRange = mainUnit.GetAttackRange();

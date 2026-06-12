@@ -20,7 +20,7 @@ public partial class MoveState : BaseState
         if (_mainUnit.faction == Faction.Enemy)
         {
             GD.Print("GOTO EnemyState");
-            parentFSM.changeState("EnemyState");
+            parentFSM.changeState(StatsConst.EnemyState);
             return;
         }
         
@@ -197,6 +197,6 @@ public partial class MoveState : BaseState
         reachableCells.Clear();
         parents.Clear();
         battleNode.gridCalculator.initializeAstar(_mainUnit);
-        parentFSM.changeState("AttackState");
+        parentFSM.changeState(StatsConst.AttackState);
     }
 }

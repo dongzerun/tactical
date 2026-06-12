@@ -18,7 +18,7 @@ public partial class SkillState : BaseStateMachine
         if (CurrentSkill == null)
         {
             GD.Print("SkillStateMachine no available skill");
-            parentFSM.changeState("AttackState");
+            parentFSM.changeState(StatsConst.AttackState);
             return;
         }
         base.OnEnter();

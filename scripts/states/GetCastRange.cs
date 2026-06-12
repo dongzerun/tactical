@@ -24,14 +24,14 @@ public partial class GetCastRange : BaseState
         if (skillStateMachine.NeedOriginSelection())
         {
             GD.Print("GetCastRange need select origin");
-            parentFSM.changeState("SelectOrigin");
+            parentFSM.changeState(StatsConst.SelectOrigin);
         }
         else
         {
             GD.Print("GetCastRange no need select origin");
             var casterPos = battleNode.gameArea.gameGrid.getUnitPosition(caster);
             skillStateMachine.SetOriginPos(casterPos);
-            parentFSM.changeState("GetSkillRange");
+            parentFSM.changeState(StatsConst.GetSkillRange);
         }
     }
 }

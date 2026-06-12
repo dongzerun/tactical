@@ -102,11 +102,11 @@ public partial class AllUnits : Resource
             return CurrentUnitIndex;
         }
         
-        // attempt size of units times to find live unit
+        // attempt size of units times to find alive unit
         for (int i = 0; i < GetCount(); i++)
         {
             CurrentUnitIndex = (CurrentUnitIndex + 1) % GetCount();
-            GD.Print($"Unit attempt {i} time to switch to {CurrentUnitIndex} current count " + GetCount());
+            GD.Print($"Unit attempt {i+1} time to switch to {CurrentUnitIndex} current count " + GetCount());
             var unit = GetUnitByIndex(CurrentUnitIndex);
             if (unit != null && !unit.IsDead())
             {

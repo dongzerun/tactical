@@ -6,9 +6,10 @@ public partial class StartState : BaseState
     public override void OnEnter()
     {
         battleNode.BackupAllUnits();
-        battleNode.gridCalculator.initializeAstar(battleNode.allUnitsResource.GetMainUnit());
-        battleNode.ShowSkullOnUnit(battleNode.GetMainUnit());
-        parentFSM.changeState("MainState");
+        var mainUnit = battleNode.GetMainUnit();
+        battleNode.gridCalculator.initializeAstar(mainUnit);
+        battleNode.ShowSkullOnUnit(mainUnit);
+        parentFSM.changeState(StatsConst.MainState);
     }
     
     public override void OnExit()

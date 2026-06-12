@@ -27,7 +27,7 @@ public partial class Battle : Node2D
     {
         {new Vector2I(0,0), UnitInfo.New(Faction.Friendly, "res://data/UnitStat.tres")},
         {new Vector2I(3,0), UnitInfo.New(Faction.Enemy, "res://data/UnitStat.tres")},
-        {new Vector2I(0,-8), UnitInfo.New(Faction.Enemy, "res://data/UnitStat.tres")}
+        {new Vector2I(3,-1), UnitInfo.New(Faction.Enemy, "res://data/UnitStat.tres")}
     };
 
     public override async void _Ready()

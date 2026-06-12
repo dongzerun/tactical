@@ -6,9 +6,8 @@ public partial class InitState : BaseState
 {
     public override void OnEnter()
     {
-        GD.Print("InitState enter");
         initUnits();
-        parentFSM.changeState("StartState");
+        parentFSM.changeState(StatsConst.StartState);
     }
 
     public override void OnExit()
@@ -46,7 +45,5 @@ public partial class InitState : BaseState
         }
 
         battleNode.allUnitsResource.CurrentUnitIndex = 0;
-        //battleNode.mainUnit=battleNode.activeUnits[battleNode.currentUnitIndex];
-        //battleNode.mainUnit.setUnitColor(new Color(1f,0.5f,0.5f));
     }
 }

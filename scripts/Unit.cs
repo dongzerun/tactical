@@ -68,7 +68,7 @@ public partial class Unit : Node2D
     {
         animatedSprite2DNode = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        currentHP = unitStat.maxHP;
+        currentHP = unitStat.GetMaxHP();
     }
 
     private bool attackDamageTriggered = false;
@@ -173,7 +173,7 @@ public partial class Unit : Node2D
 
     public int GetMovePoints()
     {
-        return unitStat.MovePoint;
+        return unitStat.GetMovePoint();
     }
 
     public bool IsDead()
@@ -205,7 +205,7 @@ public partial class Unit : Node2D
         if (amount < 0)
             return;
 
-        currentHP = Math.Min(currentHP+amount, unitStat.maxHP);
+        currentHP = Math.Min(currentHP+amount, unitStat.GetMaxHP());
         GlobalSignal.RaiseShowFloatingHealTextEvent(Position, amount);
     }
 
@@ -246,17 +246,17 @@ public partial class Unit : Node2D
     
     public int GetAttackDamage()
     {
-        return unitStat.attackDamage;
+        return unitStat.GetAttackDamage();
     }
     
     public int GetDefense()
     {
-        return unitStat.defense;
+        return unitStat.GetDefense();
     }
     
     public int GetAttackRange()
     {
-        return unitStat.attackRange;
+        return unitStat.GetAttackRange();
     }
 
     public int GetMoveCost(Terrain terrain)
@@ -268,7 +268,7 @@ public partial class Unit : Node2D
 
     public int GetMaxHP()
     {
-        return unitStat.maxHP;
+        return unitStat.GetMaxHP();
     }
 
     public BattleUnit CreateBattleUnit(Vector2I cellPos)

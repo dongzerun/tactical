@@ -6,9 +6,9 @@
 script = ExtResource("1_p3twk")
 SkillName = "TestSkill"
 AnimationName = "SKILL"
-originType = 0
+originType = 1
 castRange = 3
 AreaRange = Vector2i(3, 0)
-AreaShape = 3
+AreaShape = 1
 AreaAlgorithm = 1
 IsDirection = true
