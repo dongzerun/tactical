@@ -74,9 +74,10 @@ public partial class KnockbackProcessor : Node
     {
         // ensure shadowed by other terrain
         unit.ZIndex = -1;
+        var finalPosition = new Vector2(unit.Position.X, unit.Position.Y + FallDistance);
         var tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
-        tween.TweenProperty(unit, "position", unit.Position.Y + FallDistance, FallDuration);
+        tween.TweenProperty(unit, "position", finalPosition, FallDuration);
         tween.TweenProperty(unit, "modulate:a", 0.0f, FallDuration);
         await ToSignal(tween, "finished");
 
@@ -152,7 +153,6 @@ public partial class KnockbackProcessor : Node
             return plan;
         
         var direction = calculateKnockbackDirection(originPos, targetPos);
-        // GD.Print("planKnockbackPath params: " + originPos + " " + distance + " " + targetPos + " " + direction);
         if (direction == Vector2I.Zero)
             return plan;
         
@@ -171,6 +171,9 @@ public partial class KnockbackProcessor : Node
     {
         if (collType != CollisionType.NONE)
             return false;
+
+        if (!gameArea.gameGrid.gridDB.ContainsKey(cell))
+            return true;
         
         var cellData = gameArea.gameGrid.gridDB[cell];
         return (cellData == null || cellData.terrain == Terrain.RIVER);
@@ -205,6 +208,9 @@ public partial class KnockbackProcessor : Node
     public CollisionInfo checkCollision(Vector2I cell, Unit ignoreUnit)
     {
         var result = new CollisionInfo();
+        if (!gameArea.gameGrid.gridDB.ContainsKey(cell))
+            return result;
+        
         var cellData = gameArea.gameGrid.gridDB[cell];
         if (cellData == null)
             return result;

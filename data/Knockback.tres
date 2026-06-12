@@ -8,4 +8,5 @@ SkillName = "KnockbackSkill"
 AnimationName = "SKILL"
 castRange = 2
 castAlgorithm = 1
-AreaShape = 1
+AreaShape = 3
+AreaAlgorithm = 1
