@@ -32,6 +32,7 @@ public partial class EnemyState : BaseState
         var targets = getEnemyUnits();
         if (targets.Count > 0)
         {
+            // if one target is in attack range, no need move
             var bestPath = calculateBestMovePath(targets);
             GD.Print("ExecuteAITurn targets: " + targets.Count + " bestPath: " + bestPath.Count);
             if (bestPath.Count > 1)
@@ -46,7 +47,7 @@ public partial class EnemyState : BaseState
         await tryAttack();
         parentFSM.parentFSM.changeState("EndState");
     }
-
+    
     private List<Vector2I> getNearbyPostions(Vector2I pos, int range)
     {
         List<Vector2I> results = new();
@@ -54,23 +55,17 @@ public partial class EnemyState : BaseState
         {
             foreach (var i in Enumerable.Range(-range, 2 * range + 1))
             {
-                // skip current cell
-                if (i==0)
+                // skip target self
+                if (i == 0)
                     continue;
-
                 var nearby = pos + i*kvp.Key;
                 if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(nearby))
                     continue;
                 
-                var gridData = battleNode.gameArea.gameGrid.gridDB[nearby];
-                if (gridData.unit == null && gridData.obstacle == Obstacle.NULL)
-                {
-                    results.Add(nearby);
-                    //GD.Print("getNearbyPostions " + pos + " nearby " + nearby);
-                }
+                results.Add(nearby); 
+                GD.Print("getNearbyPostions " + pos + " i " + i+ " nearby " + nearby);
             }   
         }
-       // GD.Print("getNearbyPostions " + pos + " cells " + results.Count);
         return results;
     }
 
@@ -80,6 +75,7 @@ public partial class EnemyState : BaseState
         var minDist = 999;
         var isBestReachable = false;
         var myPos = battleNode.gameArea.gameGrid.getUnitPosition(mainUnit);
+        var attackableCells = battleNode.rangeCalculator.GetRangeCells(myPos, mainUnit.GetAttackRange());
 
         foreach (var target in targets)
         {
@@ -87,10 +83,16 @@ public partial class EnemyState : BaseState
             if (targetPos == new Vector2I(-999, -999))
                 continue;
             
-            var nearbyCells = getNearbyPostions(targetPos, 1);
+            var nearbyCells = getNearbyPostions(targetPos, mainUnit.GetAttackRange());
             GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos " + " " + nearbyCells.ToArray().Join(" "));
             if (nearbyCells.Count == 0)
                 continue;
+
+            if (attackableCells.Contains(targetPos))
+            {
+                GD.Print("calculateBestMovePath target " + targetPos + " in attack range, no need move");
+                return new List<Vector2I>();
+            }
 
             var nearbyPos = getFirstAvailableNearbyPos(myPos, targetPos, nearbyCells, filter: pos => {
                 // 检查位置是否有效
@@ -98,7 +100,7 @@ public partial class EnemyState : BaseState
                     return false;
         
                 var gridData = battleNode.gameArea.gameGrid.gridDB[pos];
-                return gridData.unit == null && gridData.obstacle == Obstacle.NULL;
+                return gridData.unit == null && gridData.obstacle == Obstacle.NULL&&gridData.terrain != Terrain.RIVER;
             });
             if (nearbyPos == new Vector2I(-999, -999))
                 continue;
@@ -164,6 +166,7 @@ public partial class EnemyState : BaseState
         
         Vector2I? bestPos = null;
         int bestDistance = int.MaxValue;
+        int bestDotProduct = int.MinValue;
         
         foreach (var nearby in nearbys)
         {
@@ -178,17 +181,19 @@ public partial class EnemyState : BaseState
             var nearbyDir = to-nearby;
             var dotProduct = nearbyDir.X * direction.X + nearbyDir.Y * direction.Y;
             
-            if (dotProduct >= 0 && dist < bestDistance)
+            if (dist <= bestDistance &&  dotProduct > bestDotProduct)
             {
                 bestDistance = dist;
                 bestPos = nearby;
+                bestDotProduct = dotProduct;
             }
+            GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, nearby pos={nearby} , dist={dist}, dotProduct={dotProduct}");
         }
         
         if (bestPos.HasValue)
             result = bestPos.Value;
         
-        //GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, best={result}, distance={bestDistance}");
+        GD.Print($"getFirstAvailableNearbyPos: from={from}, to={to}, best={result}, distance={bestDistance}");
         return result;
     }
 

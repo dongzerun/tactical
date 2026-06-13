@@ -11,7 +11,7 @@ public partial class UnitMover : Node
 
     public event Action MoveFinishedEvent;  // 保留 C# 事件用于静态订阅
     
-    async public Task MoveUnit(Unit unit, List<Vector2I> path)
+    public async Task MoveUnit(Unit unit, List<Vector2I> path)
     {
         if(gameArea == null || gameArea.gameGrid == null)
             return;

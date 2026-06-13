@@ -53,7 +53,7 @@ public partial class BaseSkill : Resource
             if (targetUnit != null && isValidTarget(caster, targetUnit))
             {
                 GD.Print("GOing to execute skill: " + SkillName + " applyEffect target pos " + targetPos);
-                applyEffect(caster, targetUnit, targetPos,battle);
+                await applyEffect(caster, targetUnit, targetPos,battle);
             }
             else
             {

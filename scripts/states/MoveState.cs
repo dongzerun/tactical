@@ -176,7 +176,7 @@ public partial class MoveState : BaseState
         
         return lastVec;
     }
-    public void MoveUnit(List<Vector2I> path)
+    public async void MoveUnit(List<Vector2I> path)
     {
         isMoving = true;
         battleNode.pathPainter.clearPath("");
@@ -184,7 +184,7 @@ public partial class MoveState : BaseState
 
         if (path.Count > 1)
         {
-            battleNode.mover.MoveUnit(_mainUnit,path);
+            await battleNode.mover.MoveUnit(_mainUnit,path);
         }
     }
 
