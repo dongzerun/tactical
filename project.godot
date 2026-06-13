@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalSignal="*res://scripts/GlobalSignal.cs"
-VfxManager="*res://scripts/VFXManager.cs"
+GlobalSignal="*res://scripts/common/GlobalSignal.cs"
+VfxManager="*res://scripts/vfx/VFXManager.cs"
 
 [display]
 

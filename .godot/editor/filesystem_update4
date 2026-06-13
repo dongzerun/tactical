@@ -47,3 +47,13 @@ res://scripts/HealSkill.cs
 res://scripts/KnockbackPlan.cs
 res://scripts/KnockbackSkill.cs
 res://data/Knockback.tres
+res://scripts/models/BattleUnit.cs
+res://scripts/skills/KnockbackPlan.cs
+res://scripts/skills/KnockbackSkill.cs
+res://scripts/vfx/VFXManager.cs
+res://scripts/common/GlobalSignal.cs
+res://scripts/models/AllUnits.cs
+res://scripts/models/UnitStat.cs
+res://scripts/skills/HealSkill.cs
+res://scripts/skills/BaseSkill.cs
+res://scripts/vfx/FloatingText.cs
