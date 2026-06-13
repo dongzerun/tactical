@@ -84,6 +84,13 @@ public partial class MoveState : BaseState
         if (@event.IsActionPressed("reset"))
         {
             battleNode.RequestReset();
+            return;
+        }
+
+        if (@event.IsActionPressed("stop_move"))
+        {
+            parentFSM.changeState(StatsConst.AttackState);
+            return;
         }
 
         if( @event.IsActionPressed("mouse_left"))
@@ -99,6 +106,7 @@ public partial class MoveState : BaseState
                 battleNode.HideSkull();
                 MoveUnit(result["reachable"]);
             }
+            return;
         }
         
         // right click to clean show move area
@@ -118,6 +126,7 @@ public partial class MoveState : BaseState
             {
                 showMoveArea();
             }
+            return;
         }
     }
 
