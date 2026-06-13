@@ -4,3 +4,5 @@
 
 [resource]
 script = ExtResource("1_hmatm")
+SkillName = "Heak"
+AnimationName = "SKILL"
