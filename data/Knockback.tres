@@ -1,12 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://btuy75kjins6b"]
 
-[ext_resource type="Script" uid="uid://bjd3482tealpj" path="res://scripts/KnockbackSkill.cs" id="1_5a36a"]
+[ext_resource type="Script" uid="uid://bjd3482tealpj" path="res://scripts/skills/KnockbackSkill.cs" id="1_5a36a"]
 
 [resource]
 script = ExtResource("1_5a36a")
-SkillName = "KnockbackSkill"
-AnimationName = "SKILL"
-castRange = 2
-castAlgorithm = 1
-AreaShape = 3
-AreaAlgorithm = 1

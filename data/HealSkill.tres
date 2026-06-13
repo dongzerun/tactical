@@ -1,10 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://bkhypvm4he0qd"]
 
-[ext_resource type="Script" uid="uid://j73fjbm0qrl8" path="res://scripts/HealSkill.cs" id="1_hmatm"]
+[ext_resource type="Script" uid="uid://j73fjbm0qrl8" path="res://scripts/skills/HealSkill.cs" id="1_hmatm"]
 
 [resource]
 script = ExtResource("1_hmatm")
-SkillName = "Heal"
-AnimationName = "SKILL"
-IncludeSelf = true
-Filter = 2

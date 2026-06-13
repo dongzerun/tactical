@@ -88,6 +88,7 @@ public partial class EnemyState : BaseState
                 continue;
             
             var nearbyCells = getNearbyPostions(targetPos, 1);
+            GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos " + " " + nearbyCells.ToArray().Join(" "));
             if (nearbyCells.Count == 0)
                 continue;
 
@@ -105,7 +106,7 @@ public partial class EnemyState : BaseState
             var result = battleNode.gridCalculator.getMovePath(mainUnit, nearbyPos);
             var reachable = result[GridCalculator.ReachablePath];
             var unreachable  = result[GridCalculator.UnreachablePath];
-            //GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + result.Count);
+            GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + nearbyCells.ToArray().Join(" "));
             var currentExecutePath = reachable;
             if (currentExecutePath.Count == 0)
                 continue;
@@ -197,7 +198,7 @@ public partial class EnemyState : BaseState
         var attackRange = mainUnit.GetAttackRange();
         var attackableCells = battleNode.rangeCalculator.GetRangeCells(
             unitPos, attackRange);
-        //GD.Print("tryAttack my pos " + unitPos + " attackRange " + attackRange + " attackableCells: " + attackableCells.ToArray().Join(" "));
+        GD.Print("tryAttack my pos " + unitPos + " attackRange " + attackRange + " attackableCells: " + attackableCells.ToArray().Join(" "));
         Unit bestTarget = null;
         foreach (var cell in attackableCells)
         {

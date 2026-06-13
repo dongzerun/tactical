@@ -57,3 +57,5 @@ res://scripts/models/UnitStat.cs
 res://scripts/skills/HealSkill.cs
 res://scripts/skills/BaseSkill.cs
 res://scripts/vfx/FloatingText.cs
+res://data/BattleUnit.tres
+res://data/AllUnits.tres
