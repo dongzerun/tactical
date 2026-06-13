@@ -78,7 +78,7 @@ public partial class GetSkillRange : BaseState
             return;
 
         var directionSource = GetDirectionSource();
-        var newDir = CalculateDirection(directionSource, cellPos);
+        var newDir = Utils.CalculateDirection(directionSource, cellPos);
         if (newDir != Vector2I.Zero)
             PreviewDirection = newDir;
     }
@@ -88,18 +88,5 @@ public partial class GetSkillRange : BaseState
         if (skillStateMachine.NeedOriginSelection())
             return skillStateMachine.GetOriginPos();
         return skillStateMachine.GetCasterPos();
-    }
-
-    public Vector2I CalculateDirection(Vector2I from, Vector2I to)
-    {
-        var diff = to - from;
-        if (diff == Vector2I.Zero)
-        {
-            return Vector2I.Zero;
-        }
-
-        if (Math.Abs(diff.X) > Math.Abs(diff.Y))
-            return new Vector2I(Math.Sign(diff.X), 0);
-        return new Vector2I(0, Math.Sign(diff.Y));
     }
 }

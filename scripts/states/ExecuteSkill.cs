@@ -15,7 +15,7 @@ public partial class ExecuteSkill : BaseState
         var targetPos = skillStateMachine.GetTargetPos();
         var direction = skill.IsDirection ? skillStateMachine.Direction : Vector2I.Zero;
         
-        var unitDirection = toUnitDirection(direction);
+        var unitDirection = toUnitDirection(direction, targetPos);
         await TriggerSkillAnimation(caster, skill.AnimationName, unitDirection);
         
         await skill.Execute(caster, targetPos,direction,battleNode.rangeCalculator, battleNode);
@@ -45,9 +45,17 @@ public partial class ExecuteSkill : BaseState
         await tcs.Task;
     }
 
-    private Direction toUnitDirection(Vector2I dir)
+    private Direction toUnitDirection(Vector2I dir, Vector2I targetPos)
     {
-        var normalized = new Vector2I(Math.Sign(dir.X),Math.Sign(dir.Y));
+        var direction = dir;
+        if (dir == Vector2I.Zero)
+        {
+            var caster = battleNode.GetMainUnit();
+            var casterPos = battleNode.gameArea.gameGrid.getUnitPosition(caster);
+            direction = Utils.CalculateDirection(casterPos, targetPos);
+        }
+
+        var normalized = new Vector2I(Math.Sign(direction.X),Math.Sign(direction.Y));
         var unit = battleNode.GetMainUnit();
         var fallback = unit!=null? unit.currentDirection : Direction.SE;
         if (Unit.DIR_MAP.ContainsKey(normalized))
