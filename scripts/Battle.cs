@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class Battle : Node2D
 {
+    [Export] public PackedScene iconSkullScene;
+    
     public UnitSpawner unitSpawner;
     public GameArea gameArea;
     public GridCalculator gridCalculator;
@@ -19,9 +21,9 @@ public partial class Battle : Node2D
     public AllUnits allUnitsResource =  new AllUnits();
     public AllUnits backupAllUnitsResource = null;
 
-    [Export] public PackedScene iconSkullScene;
+    
     private IconSkull iconSkull;
-    public BaseSkill currentSkill = null;
+    private BaseSkill currentSkill = null;
 
     public Dictionary<Vector2I, UnitInfo> unitPosDict = new Dictionary<Vector2I, UnitInfo>
     {
@@ -52,11 +54,13 @@ public partial class Battle : Node2D
 
     public override void _Process(double delta)
     {
+        // run state machine
         baseStateMachine.StateProcess((float)delta);
     }
 
     public override void _Input(InputEvent @event)
     {
+        // forwards input to state machine
         baseStateMachine.StateInput(@event);
     }
 

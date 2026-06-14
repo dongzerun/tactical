@@ -2,21 +2,6 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public enum Direction
-{
-    NE,
-    NW,
-    SE,
-    SW,
-};
-
-public enum Faction
-{
-    Enemy,
-    Friendly,
-    Neutral,
-}
-
 public class UnitInfo
 {
     public Faction faction;
@@ -47,14 +32,6 @@ public partial class Unit : Node2D
 
     public int currentHP = 1;
     private bool isDying = false;
-    
-    public static readonly System.Collections.Generic.Dictionary<Vector2I, Direction> DIR_MAP = new System.Collections.Generic.Dictionary<Vector2I, Direction>
-    {
-        { new Vector2I(0, -1), Direction.NE },
-        { new Vector2I(-1, 0), Direction.NW },
-        { new Vector2I(1, 0), Direction.SE },
-        { new Vector2I(0, 1), Direction.SW }
-    };
     
     private const string ANIM_IDLE = "IDLE";
     private const string ANIM_RUN = "RUN";

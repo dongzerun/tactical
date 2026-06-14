@@ -51,7 +51,7 @@ public partial class EnemyState : BaseState
     private List<Vector2I> getNearbyPostions(Vector2I pos, int range)
     {
         List<Vector2I> results = new();
-        foreach (var kvp in Unit.DIR_MAP)
+        foreach (var kvp in Consts.DIR_MAP)
         {
             foreach (var i in Enumerable.Range(-range, 2 * range + 1))
             {

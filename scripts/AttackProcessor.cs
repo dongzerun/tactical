@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 public partial class AttackProcessor : Node
 {
-    [Export] public GameArea gameArea;
-    [Export] public Battle battleNode;
+    [Export] private GameArea gameArea;
+    [Export] private Battle battleNode;
 
     public async Task TriggerAttack(Unit attack, Unit defender)
     {

@@ -58,9 +58,9 @@ public partial class ExecuteSkill : BaseState
         var normalized = new Vector2I(Math.Sign(direction.X),Math.Sign(direction.Y));
         var unit = battleNode.GetMainUnit();
         var fallback = unit!=null? unit.currentDirection : Direction.SE;
-        if (Unit.DIR_MAP.ContainsKey(normalized))
+        if (Consts.DIR_MAP.ContainsKey(normalized))
         {
-            return Unit.DIR_MAP[normalized];
+            return Consts.DIR_MAP[normalized];
         }
         return fallback;
     }

@@ -38,9 +38,9 @@ public partial class UnitMover : Node
             var currPos = path[i];
             var diff = currPos - prevPos;
             
-            if (Unit.DIR_MAP.ContainsKey(diff))
+            if (Consts.DIR_MAP.ContainsKey(diff))
             {
-                var direction = Unit.DIR_MAP[diff];
+                var direction = Consts.DIR_MAP[diff];
                 tween.TweenCallback(Callable.From(() => unit.PlayMove(direction)));
             }
 

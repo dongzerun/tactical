@@ -2,21 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public enum Terrain
-{
-    LAND,
-    GRASS,
-    STONE,
-    RIVER,
-}
-
-public enum Obstacle
-{
-    ROCK,
-    WOOD,
-    NULL,
-}
-
 public class GridData
 {
     public Terrain terrain;
@@ -31,7 +16,7 @@ public partial class GameGrid : Node
 
     public static Action gridChanged;
     
-    private Dictionary<Vector2I,GridData> gridDB=new Dictionary<Vector2I,GridData>();
+    private Dictionary<Vector2I,GridData> gridDB=new();
     public override void _Ready()
     {
         if (mainTileMap == null)
@@ -44,7 +29,7 @@ public partial class GameGrid : Node
         gridDB.Clear();
         foreach (var cellPos in mainTileMap.GetUsedCells())
         {
-            var tileData = mainTileMap.GetCellTileData(cellPos);
+            TileData tileData = mainTileMap.GetCellTileData(cellPos);
             var terrainType = Terrain.LAND;
             if (tileData != null)
             {
@@ -60,7 +45,7 @@ public partial class GameGrid : Node
         }
         foreach (var cellPos in obstacleTileMap.GetUsedCells())
         {
-            var tileData = obstacleTileMap.GetCellTileData(cellPos);
+            TileData tileData = obstacleTileMap.GetCellTileData(cellPos);
             var obstacleType = Obstacle.NULL;
             if (tileData != null)
             {
@@ -87,13 +72,11 @@ public partial class GameGrid : Node
     {
         if (!gridDB.ContainsKey(cell))
         {
-            //GD.Print($"cell {cell} not available in tileMap");
             return false;
         }
 
         if (!isCellPosUsable(cell))
         {
-            //GD.Print($"cell {cell} not usable temporaryly");
             return false;
         }
 
@@ -123,12 +106,15 @@ public partial class GameGrid : Node
             return false;
         
         var data = gridDB[cell];
+        // can only be added when there's no obstacle in Grid
         if (data.obstacle != Obstacle.NULL)
             return false;
 
         if (data.unit != null)
             return false;
 
+        // actually if we have flight unit, should be avaiable on RIVER
+        // currently just ignore
         if (data.terrain == Terrain.RIVER)
             return false;
         return true;
