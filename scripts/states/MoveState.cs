@@ -99,7 +99,7 @@ public partial class MoveState : BaseState
             if (_mainUnit == null)
                 return;
             
-            var result = battleNode.gridCalculator.getMovePath(_mainUnit, currentTile);
+            var result = battleNode.gridCalculator.GetMovePath(_mainUnit, currentTile);
             if (result["reachable"].Count > 0)
             {
                 //GD.Print("Input move unit to " + currentTile + " with " + result["reachable"].ToArray().Join(","));
@@ -154,7 +154,7 @@ public partial class MoveState : BaseState
             return lastVec;
         }
 
-        var result = gridCalculator.getMovePath(mainUnit, tile);
+        var result = gridCalculator.GetMovePath(mainUnit, tile);
         var reachable = result["reachable"];
         var unreachable = result["unreachable"];
         //GD.Print("reachable " +reachable.Count);

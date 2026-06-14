@@ -104,7 +104,7 @@ public partial class EnemyState : BaseState
             if (nearbyPos == new Vector2I(-999, -999))
                 continue;
             
-            var result = battleNode.gridCalculator.getMovePath(mainUnit, nearbyPos);
+            var result = battleNode.gridCalculator.GetMovePath(mainUnit, nearbyPos);
             var reachable = result[Consts.ReachablePath];
             var unreachable  = result[Consts.UnreachablePath];
             GD.Print("calculateBestMovePath to target " + targetPos + " with nearbyPos "+ nearbyPos + " " + reachable.Count + " " + unreachable.Count + " " + nearbyCells.ToArray().Join(" "));
