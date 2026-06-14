@@ -59,7 +59,7 @@ public partial class EnemyState : BaseState
                 if (i == 0)
                     continue;
                 var nearby = pos + i*kvp.Key;
-                if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(nearby))
+                if (!battleNode.gameArea.gameGrid.GetGridDB().ContainsKey(nearby))
                     continue;
                 
                 results.Add(nearby); 
@@ -74,12 +74,12 @@ public partial class EnemyState : BaseState
         var bestPath = new List<Vector2I>();
         var minDist = 999;
         var isBestReachable = false;
-        var myPos = battleNode.gameArea.gameGrid.getUnitPosition(mainUnit);
+        var myPos = battleNode.GetUnitPosition(mainUnit);
         var attackableCells = battleNode.rangeCalculator.GetRangeCells(myPos, mainUnit.GetAttackRange());
 
         foreach (var target in targets)
         {
-            var targetPos=battleNode.gameArea.gameGrid.getUnitPosition(target);
+            var targetPos=battleNode.GetUnitPosition(target);
             if (targetPos == new Vector2I(-999, -999))
                 continue;
             
@@ -96,10 +96,9 @@ public partial class EnemyState : BaseState
 
             var nearbyPos = getFirstAvailableNearbyPos(myPos, targetPos, nearbyCells, filter: pos => {
                 // 检查位置是否有效
-                if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(pos))
+                var gridData = battleNode.GetGridData(pos);
+                if (gridData == null)
                     return false;
-        
-                var gridData = battleNode.gameArea.gameGrid.gridDB[pos];
                 return gridData.unit == null && gridData.obstacle == Obstacle.NULL&&gridData.terrain != Terrain.RIVER;
             });
             if (nearbyPos == new Vector2I(-999, -999))
@@ -199,7 +198,7 @@ public partial class EnemyState : BaseState
 
     private async Task tryAttack()
     {
-        var unitPos = battleNode.gameArea.gameGrid.getUnitPosition(mainUnit);
+        var unitPos = battleNode.GetUnitPosition(mainUnit);
         var attackRange = mainUnit.GetAttackRange();
         var attackableCells = battleNode.rangeCalculator.GetRangeCells(
             unitPos, attackRange);
@@ -207,10 +206,7 @@ public partial class EnemyState : BaseState
         Unit bestTarget = null;
         foreach (var cell in attackableCells)
         {
-            if (!battleNode.gameArea.gameGrid.gridDB.ContainsKey(cell))
-                continue;
-            
-            var cellData = battleNode.gameArea.gameGrid.gridDB[cell];
+            var cellData = battleNode.GetGridData(cell);
             if (cellData == null)
                 continue;
             

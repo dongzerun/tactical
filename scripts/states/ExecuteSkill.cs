@@ -51,7 +51,7 @@ public partial class ExecuteSkill : BaseState
         if (dir == Vector2I.Zero)
         {
             var caster = battleNode.GetMainUnit();
-            var casterPos = battleNode.gameArea.gameGrid.getUnitPosition(caster);
+            var casterPos = battleNode.GetUnitPosition(caster);
             direction = Utils.CalculateDirection(casterPos, targetPos);
         }
 

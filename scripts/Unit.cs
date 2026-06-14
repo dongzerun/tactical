@@ -79,6 +79,7 @@ public partial class Unit : Node2D
             return;
             
         var currentAnim = animatedSprite2DNode.Animation;
+        // We only trigger damage once when play attack animation progress is 90%
         if (currentAnim != null && ((string)currentAnim).EndsWith(ANIM_ATTACK))
         {
             var totalFrames = animatedSprite2DNode.SpriteFrames.GetFrameCount(currentAnim);

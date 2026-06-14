@@ -35,7 +35,7 @@ public partial class ResetState : BaseState
         {
             unit.Hide();
             
-            var cellPos = battleNode.gameArea.gameGrid.getUnitPosition(unit);
+            var cellPos = battleNode.GetUnitPosition(unit);
             battleNode.gameArea.gameGrid.removeUnitInMap(cellPos);
             inactiveUnitsPool.Add(unit);
         }

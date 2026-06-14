@@ -48,7 +48,10 @@ public partial class BaseSkill : Resource
         var affectedCells=GetSkillAreaCells(targetPos, direction, calculator);
         foreach (var cell in affectedCells)
         {
-            var cellData = battle.gameArea.gameGrid.gridDB[cell];
+            var cellData = battle.GetGridData(cell);
+            if (cellData == null)
+                continue;
+            
             var targetUnit = cellData.unit as Unit;
             if (targetUnit != null && isValidTarget(caster, targetUnit))
             {
@@ -112,13 +115,13 @@ public partial class BaseSkill : Resource
         return false;
     }
 
-    public List<Vector2I> GetCastRangeCells(Unit caster, GameGrid gameGrid, RangeCalculator rangeCalculator)
+    public List<Vector2I> GetCastRangeCells(Unit caster, Battle battle, RangeCalculator rangeCalculator)
     {
         List<Vector2I> results = new();
-        if (caster == null || gameGrid == null)
+        if (caster == null || battle == null)
             return results;
 
-        var casterPos = gameGrid.getUnitPosition(caster);
+        var casterPos = battle.GetUnitPosition(caster);
         switch (originType)
         {
             case OriginType.RANGE:
@@ -129,12 +132,9 @@ public partial class BaseSkill : Resource
 
                 break;
             case OriginType.GLOBAL:
-                foreach (var pos in gameGrid.gridDB.Keys)
+                foreach (var pos in battle.gameArea.gameGrid.GetGridDB().Keys)
                 {
-                    if (pos is Vector2I)
-                    {
-                        results.Add(pos);
-                    }
+                    results.Add(pos);
                 }
                 break;
             case OriginType.SELF:

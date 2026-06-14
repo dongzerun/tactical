@@ -39,7 +39,7 @@ public partial class InitState : BaseState
         for (int i = 0; i < activeUnits.Count; i++)
         {
             var unit = activeUnits[i];
-            var cellPos = battleNode.gameArea.gameGrid.getUnitPosition(unit);
+            var cellPos = battleNode.GetUnitPosition(unit);
             var bUnit = unit.CreateBattleUnit(cellPos);
             battleNode.allUnitsResource.SetUnitAtIndex(i, unit,bUnit);
         }

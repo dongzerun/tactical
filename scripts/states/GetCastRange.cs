@@ -13,7 +13,7 @@ public partial class GetCastRange : BaseState
         var caster = battleNode.GetMainUnit();
         var castRangeCells = skill.GetCastRangeCells(
             caster,
-            battleNode.gameArea.gameGrid,
+            battleNode,
             battleNode.rangeCalculator);
         skillStateMachine.SetCastRangeCells(castRangeCells);
         battleNode.rangeSelector.ShowRange(
@@ -29,7 +29,7 @@ public partial class GetCastRange : BaseState
         else
         {
             GD.Print("GetCastRange no need select origin");
-            var casterPos = battleNode.gameArea.gameGrid.getUnitPosition(caster);
+            var casterPos = battleNode.GetUnitPosition(caster);
             skillStateMachine.SetOriginPos(casterPos);
             parentFSM.changeState(StatsConst.GetSkillRange);
         }

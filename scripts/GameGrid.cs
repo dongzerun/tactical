@@ -31,7 +31,7 @@ public partial class GameGrid : Node
 
     public static Action gridChanged;
     
-    public Dictionary<Vector2I,GridData> gridDB=new Dictionary<Vector2I,GridData>();
+    private Dictionary<Vector2I,GridData> gridDB=new Dictionary<Vector2I,GridData>();
     public override void _Ready()
     {
         if (mainTileMap == null)
@@ -71,9 +71,16 @@ public partial class GameGrid : Node
         }
     }
     
-    public GridData getGridDB(Vector2I position)
+    public Dictionary<Vector2I,GridData> GetGridDB()
     {
-        return gridDB.ContainsKey(position) ? gridDB[position] : new GridData();
+        return gridDB;
+    }
+    
+    public GridData GetGridData(Vector2I cell)
+    {
+        if(gridDB.ContainsKey(cell))
+            return gridDB[cell];
+        return null;
     }
     
     public bool addUnitInMap(Node2D unit, Vector2I cell)
@@ -108,16 +115,6 @@ public partial class GameGrid : Node
         gridDB[cell].unit = null;
         gridChanged?.Invoke();
         return true;
-    }
-
-    public Vector2I getUnitPosition(Unit unit)
-    {
-        foreach (var kv in gridDB)
-        {
-            if (kv.Value.unit == unit)
-                return kv.Key;
-        }
-        return new Vector2I(-999,-999);
     }
 
     private bool isCellPosUsable(Vector2I cell)

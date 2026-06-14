@@ -3,7 +3,7 @@ using System;
 
 public partial class HighlightSelector : Line2D
 {
-	[Export] private GameArea gameArea;
+	[Export] private Battle _battle;
 	
 	private Vector2I lastTile = new Vector2I(0, 0);
 
@@ -21,16 +21,16 @@ public partial class HighlightSelector : Line2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (gameArea == null)
+		if (_battle == null || _battle.gameArea ==null)
 		{
 			return;
 		}
 
-		var currentTile = gameArea.getHoveredTile();
+		var currentTile = _battle.gameArea.getHoveredTile();
 		if (currentTile != lastTile)
 		{
 			lastTile = currentTile;
-			var tilePosition =gameArea.getGlobalFromTile(lastTile);
+			var tilePosition =_battle.gameArea.getGlobalFromTile(lastTile);
 			Position=tilePosition;
 			//GD.Print("local position " + Position + " tile position " + tilePosition + " currentTile " + currentTile);
 			updateLabels();
@@ -40,10 +40,10 @@ public partial class HighlightSelector : Line2D
 	private void updateLabels()
 	{
 		displayPositionLabel.Text = $"({lastTile.X}, {lastTile.Y})";
-		if (gameArea == null || gameArea.gameGrid == null)
+		if (_battle == null || _battle.gameArea == null || _battle.gameArea.gameGrid == null)
 			return;
 		
-		var cellData=gameArea.gameGrid.getGridDB(lastTile);
+		var cellData=_battle.GetGridData(lastTile);
 		if (cellData == null)
 			return;
 		

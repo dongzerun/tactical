@@ -38,9 +38,9 @@ iconSkullScene = ExtResource("2_fpf3k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="HighlightSelector" parent="." node_paths=PackedStringArray("gameArea") instance=ExtResource("4_lpir7")]
+[node name="HighlightSelector" parent="." node_paths=PackedStringArray("_battle") instance=ExtResource("4_lpir7")]
 z_index = 1
-gameArea = NodePath("../GameArea")
+_battle = NodePath("..")
 
 [node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("gameGrid")]
 y_sort_enabled = true
@@ -85,9 +85,9 @@ gameArea = NodePath("../GameArea")
 script = ExtResource("8_v7i3o")
 gameArea = NodePath("../GameArea")
 
-[node name="GridCalculator" type="Node" parent="." node_paths=PackedStringArray("gameArea")]
+[node name="GridCalculator" type="Node" parent="." node_paths=PackedStringArray("_battle")]
 script = ExtResource("8_f4pi3")
-gameArea = NodePath("../GameArea")
+_battle = NodePath("..")
 
 [node name="RangeSelector" type="Node" parent="." node_paths=PackedStringArray("gameArea")]
 script = ExtResource("11_03edq")
@@ -143,15 +143,16 @@ script = ExtResource("19_saiin")
 [node name="ResetState" type="Node" parent="BattleStateMachine"]
 script = ExtResource("20_dd63g")
 
-[node name="RangeCalculator" type="Node" parent="."]
+[node name="RangeCalculator" type="Node" parent="." node_paths=PackedStringArray("gameArea")]
 script = ExtResource("19_p0caf")
+gameArea = NodePath("../GameArea")
 
 [node name="AttackProcessor" type="Node" parent="." node_paths=PackedStringArray("gameArea", "battleNode")]
 script = ExtResource("20_61i1y")
 gameArea = NodePath("../GameArea")
 battleNode = NodePath("..")
 
-[node name="KnockbackProcessor" type="Node" parent="." node_paths=PackedStringArray("gameArea", "attackProcessor")]
+[node name="KnockbackProcessor" type="Node" parent="." node_paths=PackedStringArray("_battle", "attackProcessor")]
 script = ExtResource("30_rwtbh")
-gameArea = NodePath("../GameArea")
+_battle = NodePath("..")
 attackProcessor = NodePath("../AttackProcessor")

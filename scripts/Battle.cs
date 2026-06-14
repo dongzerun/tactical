@@ -62,7 +62,7 @@ public partial class Battle : Node2D
 
     public void UpdateAllUnitsBattleUnits()
     {
-        allUnitsResource.UpdateBattleUnit(unit => gameArea.gameGrid.getUnitPosition(unit));
+        allUnitsResource.UpdateBattleUnit(unit => GetUnitPosition(unit));
     }
     
     public BaseSkill GetSkill(int idx)
@@ -195,7 +195,7 @@ public partial class Battle : Node2D
         var unitIndex = activeUnits.IndexOf(unit);
         allUnitsResource.RemoveUnitAndUpdateIndex(unitIndex);
         
-        var pos = gameArea.gameGrid.getUnitPosition(unit);
+        var pos = GetUnitPosition(unit);
         var removed = gameArea.gameGrid.removeUnitInMap(pos);
         GD.Print("Unit " + unit.Name + " idx " + unitIndex + " pos " + pos + " died and remove from grid? " + removed);
         unit.QueueFree();
@@ -204,5 +204,20 @@ public partial class Battle : Node2D
     public BaseSkill GetCurrentSkill()
     {
         return currentSkill;
+    }
+    
+    public Vector2I GetUnitPosition(Unit unit)
+    {
+        foreach (var kv in gameArea.gameGrid.GetGridDB())
+        {
+            if (kv.Value.unit == unit)
+                return kv.Key;
+        }
+        return new Vector2I(-999,-999);
+    }
+    
+    public GridData GetGridData(Vector2I cell)
+    {
+        return gameArea.gameGrid.GetGridData(cell);
     }
 }

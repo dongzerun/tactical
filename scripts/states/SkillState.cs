@@ -60,7 +60,7 @@ public partial class SkillState : BaseStateMachine
         var caster = battleNode.GetMainUnit();
         if (caster == null)
             return Vector2I.Zero;
-        return battleNode.gameArea.gameGrid.getUnitPosition(caster);
+        return battleNode.GetUnitPosition(caster);
     }
 
     public void SetTargetPos(Vector2I pos)

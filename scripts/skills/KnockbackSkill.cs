@@ -20,7 +20,7 @@ public partial class KnockbackSkill : BaseSkill
         if (kbp != null)
         {
             GD.Print("applyEffect call KnockbackUnit");
-            var casterPos = battle.gameArea.gameGrid.getUnitPosition(caster);
+            var casterPos = battle.GetUnitPosition(caster);
             await kbp.KnockbackUnit(casterPos, target, KnockbackDistance, KnockbackPerCellTime);
         }
     }
@@ -35,10 +35,10 @@ public partial class KnockbackSkill : BaseSkill
         pendingEffectCount = 0;
         foreach (var cell in effectCells)
         {
-            if (!battle.gameArea.gameGrid.gridDB.ContainsKey(cell))
+            var cellData = battle.GetGridData(cell);
+            if (cellData == null)
                 continue;
             
-            var cellData = battle.gameArea.gameGrid.gridDB[cell];
             var targetUnit = cellData.unit as Unit;
             if (targetUnit != null && isValidTarget(caster, targetUnit))
             {

@@ -18,7 +18,7 @@ public class CollisionInfo
 
 public partial class KnockbackProcessor : Node
 {
-    [Export] public GameArea gameArea;
+    [Export] private Battle _battle;
     [Export] public AttackProcessor attackProcessor;
     [Export] public float DefaultPerCellTime = 0.1f;
     [Export] public float FallDistance = 64f;
@@ -26,10 +26,10 @@ public partial class KnockbackProcessor : Node
 
     public async void ExecuteKnockback(Unit attacker, Unit defender, int distance = -1, float perCellTime = -0.1f)
     {
-        if (!IsInstanceValid(attacker) || !IsInstanceValid(defender) || gameArea==null)
+        if (!IsInstanceValid(attacker) || !IsInstanceValid(defender) || _battle == null || _battle.gameArea==null)
             return;
         
-        var originPos = gameArea.gameGrid.getUnitPosition(attacker);
+        var originPos = _battle.GetUnitPosition(attacker);
         await executeKnockbackInternal(originPos, defender, distance, perCellTime);
     }
 
@@ -48,16 +48,16 @@ public partial class KnockbackProcessor : Node
             return;
         GD.Print("executeKnockbackInternal plan " + plan.ToString());
         var moveTime = perCellTime< 0 ? DefaultPerCellTime : perCellTime;
-        if (gameArea != null && gameArea.gameGrid != null)
+        if (_battle != null || _battle.gameArea != null && _battle.gameArea.gameGrid != null)
         {
-            gameArea.gameGrid.removeUnitInMap(plan.StartCell);
+            _battle.gameArea.gameGrid.removeUnitInMap(plan.StartCell);
         }
 
         if (!plan.IsFalling)
         {
-            if (gameArea != null && gameArea.gameGrid != null)
+            if (_battle != null && _battle.gameArea != null && _battle.gameArea.gameGrid != null)
             {
-                gameArea.gameGrid.addUnitInMap(target, plan.LandingCell);
+                _battle.gameArea.gameGrid.addUnitInMap(target, plan.LandingCell);
             }
             target.PlayIdle();
         }
@@ -128,7 +128,7 @@ public partial class KnockbackProcessor : Node
         target.PlayIdle();
         var tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Quint).SetEase(Tween.EaseType.Out);
-        tween.TweenProperty(target, "position", gameArea.getGlobalFromTile(end) + UnitSpawner.DEFAULT_OFFSET,duration);
+        tween.TweenProperty(target, "position", _battle.gameArea.getGlobalFromTile(end) + UnitSpawner.DEFAULT_OFFSET,duration);
         await ToSignal(tween, "finished");
     }
 
@@ -141,14 +141,14 @@ public partial class KnockbackProcessor : Node
         var duration = Math.Max(0.03f, perCellTime * 0.35);
         var tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Bounce).SetEase(Tween.EaseType.Out);
-        tween.TweenProperty(target, "position", gameArea.getGlobalFromTile(landing) + UnitSpawner.DEFAULT_OFFSET,duration);
+        tween.TweenProperty(target, "position", _battle.gameArea.getGlobalFromTile(landing) + UnitSpawner.DEFAULT_OFFSET,duration);
         await ToSignal(tween, "finished");
     }
 
     private KnockbackPlan planKnockbackPath(Vector2I originPos, Unit target, int distance)
     {
         var plan = new KnockbackPlan();
-        var targetPos = gameArea.gameGrid.getUnitPosition(target);
+        var targetPos = _battle.GetUnitPosition(target);
         if (targetPos.X == -999 && targetPos.Y == -999)
             return plan;
         
@@ -171,11 +171,8 @@ public partial class KnockbackProcessor : Node
     {
         if (collType != CollisionType.NONE)
             return false;
-
-        if (!gameArea.gameGrid.gridDB.ContainsKey(cell))
-            return true;
         
-        var cellData = gameArea.gameGrid.gridDB[cell];
+        var cellData = _battle.GetGridData(cell);
         return (cellData == null || cellData.terrain == Terrain.RIVER);
     }
 
@@ -208,10 +205,7 @@ public partial class KnockbackProcessor : Node
     public CollisionInfo checkCollision(Vector2I cell, Unit ignoreUnit)
     {
         var result = new CollisionInfo();
-        if (!gameArea.gameGrid.gridDB.ContainsKey(cell))
-            return result;
-        
-        var cellData = gameArea.gameGrid.gridDB[cell];
+        var cellData = _battle.GetGridData(cell);
         if (cellData == null)
             return result;
 

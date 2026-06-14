@@ -22,7 +22,7 @@ public partial class AttackState : BaseState
             throw new Exception("Unit not found, shouldn't happened");
         }
 
-        var centerPos = battleNode.gameArea.gameGrid.getUnitPosition(unit);
+        var centerPos = battleNode.GetUnitPosition(unit);
         var rangeVal = unit.GetAttackRange();
         
         attackableCells = battleNode.rangeCalculator.GetRangeCells(centerPos, rangeVal,DistanceAlgorithm.MANHATTAN);
@@ -63,7 +63,10 @@ public partial class AttackState : BaseState
             var currentTile = battleNode.gameArea.getHoveredTile();
             if (attackableCells.Contains(currentTile))
             {
-                var cellData = battleNode.gameArea.gameGrid.gridDB[currentTile];
+                var cellData = battleNode.GetGridData(currentTile);
+                if (cellData == null)
+                    return;
+                
                 var targetUnit = cellData.unit as Unit;
                 var attackUnit = battleNode.allUnitsResource.GetMainUnit();
                 GD.Print("is valid target????" + IsInstanceValid(targetUnit));

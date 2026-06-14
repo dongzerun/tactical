@@ -5,7 +5,7 @@ using System.Linq;
 
 public partial class GridCalculator : Node
 {
-    [Export] GameArea gameArea;
+    [Export] private Battle _battle;
 
     private AStar2D aStar = new();
     private List<Vector2I> directions = new List<Vector2I>{
@@ -25,10 +25,10 @@ public partial class GridCalculator : Node
         aStar.Clear(); 
         coordToID.Clear();
 
-        if (gameArea == null || gameArea.gameGrid == null)
+        if (_battle == null || _battle.gameArea == null || _battle.gameArea.gameGrid == null)
             return;
 
-        gridData = gameArea.gameGrid.gridDB;
+        gridData = _battle.gameArea.gameGrid.GetGridDB();
         GD.Print("initializeAstar again !!!");
         var moveCostMap = UnitStat.moveCostMap;
         var id_counter = 0;
@@ -66,7 +66,7 @@ public partial class GridCalculator : Node
     public ReachableCellsInfo GetReachableCells(Unit unit)
     {
         ReachableCellsInfo results = new();
-        var startPos = gameArea.gameGrid.getUnitPosition(unit);
+        var startPos = _battle.GetUnitPosition(unit);
         if (!coordToID.ContainsKey(startPos))
             return results;
 
@@ -163,7 +163,7 @@ public partial class GridCalculator : Node
             {ReachablePath, new List<Vector2I>() },
             {UnreachablePath, new List<Vector2I>() }
         };
-        var startPos = gameArea.gameGrid.getUnitPosition(unit);
+        var startPos = _battle.GetUnitPosition(unit);
         GD.Print("getMovePath start Pos " +startPos + " target " + targetPos);
         if (!coordToID.ContainsKey(targetPos))
         {
