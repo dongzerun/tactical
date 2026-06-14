@@ -26,13 +26,13 @@ public partial class AttackState : BaseState
         var rangeVal = unit.GetAttackRange();
         
         attackableCells = battleNode.rangeCalculator.GetRangeCells(centerPos, rangeVal,DistanceAlgorithm.MANHATTAN);
-        battleNode.rangeSelector.ShowRange(attackableCells,new Color(1,0,0,0.5f),"attackRange");
+        battleNode.rangeSelector.ShowRange(attackableCells,new Color(1,0,0,0.5f),Consts.RangeSelectGroupAttack);
     }
     
     public override void OnExit()
     {
         GD.Print("Attack OnExit");
-        battleNode.rangeSelector.ClearRange("attackRange");
+        battleNode.rangeSelector.ClearRange(Consts.RangeSelectGroupAttack);
         isAttacking = false;
         
     }

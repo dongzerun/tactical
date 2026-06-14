@@ -2,20 +2,6 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public class UnitInfo
-{
-    public Faction faction;
-    public UnitStat UnitStat;
-
-    public static UnitInfo New(Faction f, string unitStat)
-    {
-        var UnitInfo=new UnitInfo();
-        UnitInfo.faction = f;
-        UnitInfo.UnitStat = ResourceLoader.Load<UnitStat>(unitStat);
-        return UnitInfo;
-    }
-}
-
 public partial class Unit : Node2D
 {
     [Export] public AnimatedSprite2D animatedSprite2DNode;

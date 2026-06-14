@@ -10,13 +10,13 @@ public partial class RangeSelector : Node
 
     private Dictionary<string, int> PriorityMap = new Dictionary<string, int>
     {
-        {"move_Range",0},
-        {"attackRange",1},
-        {"default", 1}
+        {Consts.RangeSelectGroupMove,0},
+        {Consts.RangeSelectGroupAttack,1},
+        {Consts.RangeSelectGroupDefault, 1}
     };
     private Dictionary<string,List<Node2D>> _groups = new();
 
-    public void ShowRange(List<Vector2I> cells, Color color, string groupName="default")
+    public void ShowRange(List<Vector2I> cells, Color color, string groupName)
     {
         ClearRange(groupName);
         if (gameArea == null)

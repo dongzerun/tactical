@@ -19,7 +19,7 @@ public partial class GetCastRange : BaseState
         battleNode.rangeSelector.ShowRange(
             castRangeCells,
             new Color(0.2f,0.4f,1.0f,0.5f),
-            "skill_cast");
+            Consts.RangeSelectGroupSkillCast);
 
         if (skillStateMachine.NeedOriginSelection())
         {

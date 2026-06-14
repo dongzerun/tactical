@@ -50,11 +50,11 @@ public partial class SelectOrigin : BaseState
         lastMouseCellPos = cellPos;
         if (skillStateMachine.IsInCastRange(cellPos))
         {
-            battleNode.rangeSelector.ShowRange(new List<Vector2I>{cellPos},new Color(0.4f,0.4f,0.4f),"origin_preview");
+            battleNode.rangeSelector.ShowRange(new List<Vector2I>{cellPos},new Color(0.4f,0.4f,0.4f),Consts.RangeSelectGroupOriginPreview);
         }
         else
         {
-            battleNode.rangeSelector.ClearRange("origin_preview");
+            battleNode.rangeSelector.ClearRange(Consts.RangeSelectGroupOriginPreview);
         }
     }
 }

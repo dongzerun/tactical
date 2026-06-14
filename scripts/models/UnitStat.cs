@@ -2,6 +2,20 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+public class UnitInfo
+{
+    public Faction faction;
+    public UnitStat UnitStat;
+
+    public static UnitInfo New(Faction f, string unitStat)
+    {
+        var UnitInfo=new UnitInfo();
+        UnitInfo.faction = f;
+        UnitInfo.UnitStat = ResourceLoader.Load<UnitStat>(unitStat);
+        return UnitInfo;
+    }
+}
+
 public partial class UnitStat : Resource
 {
     [Export] private int MovePoint = 8;

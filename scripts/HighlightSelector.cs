@@ -5,7 +5,7 @@ public partial class HighlightSelector : Line2D
 {
 	[Export] private Battle _battle;
 	
-	private Vector2I lastTile = new Vector2I(0, 0);
+	private Vector2I lastTile = new Vector2I(-999, -999);
 
 	private Label displayPositionLabel;
 	private Label displayTerrainLabel;
@@ -32,7 +32,6 @@ public partial class HighlightSelector : Line2D
 			lastTile = currentTile;
 			var tilePosition =_battle.gameArea.getGlobalFromTile(lastTile);
 			Position=tilePosition;
-			//GD.Print("local position " + Position + " tile position " + tilePosition + " currentTile " + currentTile);
 			updateLabels();
 		}
 	}

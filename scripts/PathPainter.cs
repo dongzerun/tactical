@@ -10,13 +10,12 @@ public partial class PathPainter : Node
     private Dictionary<string, List<Line2D>> pathGroups=new();
     
     private Color defaultPainterColor = new Color(1f, 1f, 1f, 0.8f);
-    public void ShowPath(List<Vector2I> cells, Color color, string groupName="default",float width=4.0f)
+    public void ShowPath(List<Vector2I> cells, Color color, string groupName,float width=4.0f)
     {
         if (gameArea == null || cells.Count == 0)
             return;
         
         clearPath(groupName);
-        //GD.Print("Going to paint Lines: " + cells.ToArray().Join(","));
         var line = new Line2D();
         line.Width = width;
         line.DefaultColor = color;

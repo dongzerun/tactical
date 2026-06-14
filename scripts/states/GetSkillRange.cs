@@ -43,7 +43,7 @@ public partial class GetSkillRange : BaseState
         var targetPos = GetTargetPos(skill, cellPos);
         var direction = skill.IsDirection ? PreviewDirection : Vector2I.Zero;
         var areaCells = skill.GetSkillAreaCells(targetPos, direction,battleNode.rangeCalculator);
-        battleNode.rangeSelector.ShowRange(areaCells,new Color(1f,0.45f,0.35f,0.55f),"skill_preview");
+        battleNode.rangeSelector.ShowRange(areaCells,new Color(1f,0.45f,0.35f,0.55f),Consts.RangeSelectGroupSkillPreview);
     }
 
     public Vector2I GetTargetPos(BaseSkill skill, Vector2I cellPos)

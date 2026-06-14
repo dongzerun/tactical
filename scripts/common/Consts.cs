@@ -14,5 +14,16 @@ public class Consts
     
     public static string ReachablePath = "reachable";
     public static string UnreachablePath = "unreachable";
+
+    public static string PathPainterGroupDefault = "default";
+    public static string PathPainterGroupReachable = "reachable";
+    public static string PathPainterGroupUnreachable = "unreachable";
+    
+    public static string RangeSelectGroupDefault = "default";
+    public static string RangeSelectGroupMove = "moveRange";
+    public static string RangeSelectGroupAttack = "attackRange";
+    public static string RangeSelectGroupOriginPreview = "originPreview";
+    public static string RangeSelectGroupSkillCast = "skillCast";
+    public static string RangeSelectGroupSkillPreview = "skillPreview";
 }
 

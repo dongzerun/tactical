@@ -5,21 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using Godot.Collections;
 
-public enum DistanceAlgorithm
-{
-    MANHATTAN = 0,
-    CHEBYSHEV = 1,
-    EUCLIDEAN = 2,
-}
-
-public enum ShapeType
-{
-    CIRCLE=0,
-    LINE=1,
-    CONE=2,
-    RECTANGLE=3
-}
-
 public partial class RangeCalculator : Node
 {
     [Export] public GameArea gameArea;
@@ -127,10 +112,9 @@ public partial class RangeCalculator : Node
                         break;
                 }
 
-                if (dist <= (float)range)
+                if (dist <= range)
                 {
-                    var cell = center + new Vector2I(x,y);
-                    results.Add(cell);
+                    results.Add(center + new Vector2I(x,y));
                 }
             }
         }

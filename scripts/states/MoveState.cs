@@ -53,11 +53,11 @@ public partial class MoveState : BaseState
             var rangeVal = _mainUnit.GetAttackRange();
             var attackableCells = battleNode.rangeCalculator.GetRangeCells(lastPos, rangeVal);
             //GD.Print("ShowRange " + lastPos + " range " + rangeVal + " cells " + attackableCells.Count);
-            battleNode.rangeSelector.ShowRange(attackableCells, new Color(1,0,0,0.5f),"attackRange");
+            battleNode.rangeSelector.ShowRange(attackableCells, new Color(1,0,0,0.5f),Consts.RangeSelectGroupAttack);
         }
         else
         {
-            battleNode.rangeSelector.ClearRange("attackRange");
+            battleNode.rangeSelector.ClearRange(Consts.RangeSelectGroupAttack);
         }
 
     }
@@ -75,7 +75,7 @@ public partial class MoveState : BaseState
         var cells =reachableCells.Keys;
         //GD.Print("reachableCells " + reachableCells.Keys.ToArray().Join(""));
         //GD.Print("parents " + parents.Count);
-        battleNode.rangeSelector.ShowRange(cells.ToList(),new Color(0.4f,0.6f,1.0f,0.5f), "move_range");
+        battleNode.rangeSelector.ShowRange(cells.ToList(),new Color(0.4f,0.6f,1.0f,0.5f), Consts.RangeSelectGroupMove);
         showingArea = true;
     }
 
@@ -146,8 +146,8 @@ public partial class MoveState : BaseState
             //GD.Print("reachable in parents path " + path.Count);
             if (path.Count > 0)
             {
-                pathPainter.ShowPath(path, new Color(1f,1f,0.5f,0.9f),"reachable");
-                pathPainter.clearPath("unreachable");
+                pathPainter.ShowPath(path, new Color(1f,1f,0.5f,0.9f),Consts.PathPainterGroupReachable);
+                pathPainter.clearPath(Consts.PathPainterGroupUnreachable);
             }
 
             lastVec = tile;
@@ -155,19 +155,19 @@ public partial class MoveState : BaseState
         }
 
         var result = gridCalculator.GetMovePath(mainUnit, tile);
-        var reachable = result["reachable"];
-        var unreachable = result["unreachable"];
+        var reachable = result[Consts.PathPainterGroupReachable];
+        var unreachable = result[Consts.PathPainterGroupUnreachable];
         //GD.Print("reachable " +reachable.Count);
         //GD.Print("unreachable " + unreachable.Count);
         if (reachable.Count > 0)
         {
             lastVec = reachable.Last();
             //GD.Print("lastVec " + lastVec);
-            pathPainter.ShowPath(reachable, new Color(1f,1f,0.5f,0.9f),"reachable");
+            pathPainter.ShowPath(reachable, new Color(1f,1f,0.5f,0.9f),Consts.PathPainterGroupReachable);
         }
         else
         {
-            pathPainter.clearPath("reachable");
+            pathPainter.clearPath(Consts.PathPainterGroupReachable);
         }
 
         if (unreachable.Count > 0)
@@ -176,11 +176,11 @@ public partial class MoveState : BaseState
             {
                 unreachable.Insert(0, reachable.Last());
             }
-            pathPainter.ShowPath(unreachable, new Color(0.5f,0.5f,0.5f,1f),"unreachable");
+            pathPainter.ShowPath(unreachable, new Color(0.5f,0.5f,0.5f,1f),Consts.PathPainterGroupUnreachable);
         }
         else
         {
-            pathPainter.clearPath("unreachable");
+            pathPainter.clearPath(Consts.PathPainterGroupUnreachable);
         }
         
         return lastVec;

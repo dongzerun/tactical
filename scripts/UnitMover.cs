@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 public partial class UnitMover : Node
 {
-    [Export] private GameArea gameArea;
-    [Export] private float moveSpeed = 0.2f;
+    [Export] private GameArea _gameArea;
+    [Export] private float _moveSpeed = 0.2f;
 
-    public event Action MoveFinishedEvent;  // 保留 C# 事件用于静态订阅
+    public event Action MoveFinishedEvent;
     
     public async Task MoveUnit(Unit unit, List<Vector2I> path)
     {
-        if(gameArea == null || gameArea.gameGrid == null)
+        if(_gameArea == null || _gameArea.gameGrid == null)
             return;
 
         if (path.Count <= 1)
@@ -25,8 +25,7 @@ public partial class UnitMover : Node
         var startGridPos = path[0];
         var endGridPos = path.Last();
         
-        var opsSuccess = gameArea.gameGrid.removeUnitInMap(startGridPos);
-        GD.Print("removeUnitInMap " + startGridPos + " " + opsSuccess);
+        var opsSuccess = _gameArea.gameGrid.removeUnitInMap(startGridPos);
         var tween = CreateTween();
         tween.SetEase(Tween.EaseType.InOut);
         tween.SetTrans(Tween.TransitionType.Linear);
@@ -44,15 +43,14 @@ public partial class UnitMover : Node
                 tween.TweenCallback(Callable.From(() => unit.PlayMove(direction)));
             }
 
-            var targetPos = gameArea.getGlobalFromTile(currPos) + UnitSpawner.DEFAULT_OFFSET;
-            tween.TweenProperty(unit, "position", targetPos, moveSpeed);
+            var targetPos = _gameArea.getGlobalFromTile(currPos) + UnitSpawner.DEFAULT_OFFSET;
+            tween.TweenProperty(unit, "position", targetPos, _moveSpeed);
         }
 
         await ToSignal(tween, "finished");
         unit.PlayIdle();
 
-        opsSuccess = gameArea.gameGrid.addUnitInMap(unit, endGridPos);
-        GD.Print("addUnitInMap " + startGridPos + " " + opsSuccess);
+        opsSuccess = _gameArea.gameGrid.addUnitInMap(unit, endGridPos);
         MoveFinishedEvent?.Invoke();
     } 
 }
