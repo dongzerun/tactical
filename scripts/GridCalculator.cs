@@ -13,11 +13,8 @@ public partial class GridCalculator : Node
     };
 
     private Unit _unit;
-    private Dictionary<Vector2I, GridData> gridData = new Dictionary<Vector2I, GridData>();
+    private Dictionary<Vector2I, GridData> gridData = new();
     private Dictionary<Vector2I, int> coordToID = new();
-    
-    public static string ReachablePath = "reachable";
-    public static string UnreachablePath = "unreachable";
 
     public void initializeAstar(Unit unit)
     {
@@ -160,8 +157,8 @@ public partial class GridCalculator : Node
         //initializeAstar(unit);
         var path = new Dictionary<string, List<Vector2I>>
         {
-            {ReachablePath, new List<Vector2I>() },
-            {UnreachablePath, new List<Vector2I>() }
+            {Consts.ReachablePath, new List<Vector2I>() },
+            {Consts.UnreachablePath, new List<Vector2I>() }
         };
         var startPos = _battle.GetUnitPosition(unit);
         GD.Print("getMovePath start Pos " +startPos + " target " + targetPos);
@@ -180,7 +177,7 @@ public partial class GridCalculator : Node
         if (idPaths.Length == 0)
             return path;
         //GD.Print("idPaths " +idPaths);
-        path[ReachablePath].Add(startPos);
+        path[Consts.ReachablePath].Add(startPos);
 
         var currentMove = unit.GetMovePoints();
         var isReachable = true;
@@ -194,17 +191,17 @@ public partial class GridCalculator : Node
                 if (cost != -1 && currentMove >= cost)
                 {
                     currentMove -= cost;
-                    path[ReachablePath].Add(pos);
+                    path[Consts.ReachablePath].Add(pos);
                 }
                 else
                 {
                     isReachable = false;
-                    path[UnreachablePath].Add(pos);
+                    path[Consts.UnreachablePath].Add(pos);
                 }
             }
             else
             {
-                path[UnreachablePath].Add(pos);
+                path[Consts.UnreachablePath].Add(pos);
             }
         }
         return path;

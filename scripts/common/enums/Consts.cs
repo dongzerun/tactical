@@ -11,5 +11,8 @@ public class Consts
         { new Vector2I(1, 0), Direction.SE },
         { new Vector2I(0, 1), Direction.SW }
     };
+    
+    public static string ReachablePath = "reachable";
+    public static string UnreachablePath = "unreachable";
 }
 
